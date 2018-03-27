@@ -21,20 +21,6 @@ datatype softLandingLag = SoftLandingLag of int;
 datatype hardLandingLag = HardLandingLag of int;
 datatype fHAirTime = FHAirTime of int;
 
-datatype ryuStats = RyuStats of characterName * weight * runSpeed * walkSpeed *
-airSpeed * fallSpeed * fastFallSpeed * airAcceleration * gravity * sHAirTime *
-maxJumps * wallJump * wallCling * crawl * tether * jumpsquat * softLandingLag * hardLandingLag * fHAirTime;
-
-val ryuStat =
-  RyuStats(Ryu,Weight(103),RunSpeed(0.6),WalkSpeed(0.75),AirSpeed(1.12),FallSpeed(1.6),FastFallSpeed(2.24),AirAcceleration(0.025),Gravity(0.12),SHAirTime(31),MaxJumps(2),WallJump(false),WallCling(false),Crawl(false),Tether(false),Jumpsquat(5),
-  SoftLandingLag(2),HardLandingLag(4),FHAirTime(43));
-
-(*
-datatype statistic = Weight | RunSpeed | WalkSpeed | AirSpeed | FallSpeed |
-FastFallSpeed | AirAcceleration | Gravity | SHAirTime | MaxJumps | WallJump |
-WallCling | Crawl | Tether | Jumpsquat | SoftLandingLag | FHAirTime;
-*)
-
 (*General Ground Moves*)
 datatype hitBoxActive1 = HitBoxActive1 of int;
 datatype hitBoxActive2 = HitBoxActive2 of int * int;
@@ -50,7 +36,7 @@ datatype knockBackGrowth = KnockBackGrowth of int;
 datatype weightDependent = WeightDependent of bool;
 datatype intangibility = Intangibility of int * int;
 
-(*Ground Moves Ryu*)
+(*Ground Moves Ryu [18 items]*)
 datatype lightJab1Ryu = LightJab1Ryu of hitBoxActive2 * firstActionableFrame *
 baseDamage * twoAngle * weightBaseKnockBack * knockBackGrowth;
 datatype mediumJab1Ryu = MediumJab1Ryu of hitBoxActive2 * firstActionableFrame *
@@ -106,6 +92,7 @@ datatype forwardRoll = ForwardRoll of intangibility * firstActionableFrame;
 datatype backRoll = BackRoll of intangibility * firstActionableFrame;
 datatype airDodge = AirDodge of intangibility * firstActionableFrame;
 
+(*Rest of the Datatypes for RYU [29 items]*)
 datatype ryuAttacks = RyuAttacks of lightJab1Ryu * mediumJab1Ryu * jab2Ryu *
 jab3* dashAttack * dashAttackLate * lightFTilt * mediumFTiltHit1 *
 mediumFTiltHit2* lightUTilt * mediumUTilt * mediumUTiltLate * lightDTilt *
@@ -113,5 +100,16 @@ mediumDTilt * fSmash * uSmash * uSmashLate * dSmash * standingGrab * dashGrab *
 pivotGrab * fThrow * bThrow * uThrow * dThrow * spotDodge * forwardRoll *
 backRoll * airDodge;
 
+datatype ryuStats = RyuStats of characterName * weight * runSpeed * walkSpeed *
+airSpeed * fallSpeed * fastFallSpeed * airAcceleration * gravity * sHAirTime *
+maxJumps * wallJump * wallCling * crawl * tether * jumpsquat * softLandingLag * hardLandingLag * fHAirTime;
+
+(*19 total things in stats*)
+val ryuStat =
+  RyuStats(Ryu,Weight(103),RunSpeed(0.6),WalkSpeed(0.75),AirSpeed(1.12),FallSpeed(1.6),FastFallSpeed(2.24),AirAcceleration(0.025),Gravity(0.12),SHAirTime(31),MaxJumps(2),WallJump(false),WallCling(false),Crawl(false),Tether(false),Jumpsquat(5),
+  SoftLandingLag(2),HardLandingLag(4),FHAirTime(43));
 datatype ryuTotal = RyuTotal of ryuStats * ryuAttacks;
 val ryu = RyuTotal;
+fun ryuWeight(RyuTotal(RyuStats(_,Weight(weight),_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),RyuAttacks(_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)))
+  = weight;
+val weight = ryuWeight(RyuTotal);
